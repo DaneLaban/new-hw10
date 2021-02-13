@@ -4,17 +4,31 @@ const Intern = require ("./lib/intern.js");
 const inquirer = require ("inquirer");
 const path = require ("path");
 const fs = require ("fs");
+const OUTPUT_DIR = path.resolve(__dirname, "style.css")
+const outputPath = path.join(OUTPUT_DIR, "index.html");
 
 
 inquirer
     .prompt([
         {
-            type: 'list',
-            name: 'role',
-            message: 'What is your role?',
-            choices: ['Intern', 'Engineer', 'Manager'],
+            type: 'input',
+            name: 'manager',
+            message: 'What is your name?',
+            
         },
-    ])
-    .then(answers => {
-        console.info('Role:', answers.role);
-    });
+        {
+            type: 'input',
+            name: 'id',
+            message: 'What is your ID number?',
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is your email?',
+        },
+        {
+            type: 'input',
+            name: 'office',
+            message: 'What is your office number?'
+        },
+    ]);
