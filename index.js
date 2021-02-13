@@ -4,8 +4,9 @@ const Intern = require ("./lib/intern.js");
 const inquirer = require ("inquirer");
 const path = require ("path");
 const fs = require ("fs");
-const OUTPUT_DIR = path.resolve(__dirname, "style.css")
+const OUTPUT_DIR = path.resolve(__dirname, "dist")
 const outputPath = path.join(OUTPUT_DIR, "index.html");
+const render = require("./source/template.js")
 
 
 inquirer
@@ -14,7 +15,9 @@ inquirer
             type: 'input',
             name: 'manager',
             message: 'What is your name?',
-            
+            validate: function validateManager(name){
+                return name !=='';
+            }
         },
         {
             type: 'input',
@@ -32,3 +35,16 @@ inquirer
             message: 'What is your office number?'
         },
     ]);
+
+    function buildTeam() {
+        // Create the output directory if the output path doesn't exist
+        if (!fs.existsSync(OUTPUT_DIR)) {
+          fs.mkdirSync(OUTPUT_DIR)
+        }
+        fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
+      }
+    
+      createManager();
+    
+    
+    
