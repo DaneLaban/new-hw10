@@ -5,3 +5,16 @@ const inquirer = require ("inquirer");
 const path = require ("path");
 const fs = require ("fs");
 
+
+inquirer
+    .prompt([
+        {
+            type: 'list',
+            name: 'role',
+            message: 'What is your role?',
+            choices: ['Intern', 'Engineer', 'Manager'],
+        },
+    ])
+    .then(answers => {
+        console.info('Role:', answers.role);
+    });
