@@ -2,7 +2,7 @@ const generateTeam = team => {
 
 
 const generateManager = manager => {
-    return
+    return `
     <div class="card employee-card">
     <div class="card-header" style="width: 18rem;">
         <h5 class="card-title"> ${manager.getName()} </h5>
@@ -11,17 +11,17 @@ const generateManager = manager => {
 
     <div class="card-body">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"> ${manager.getId()} </li>
-          <li class="list-group-item"> ${manager.getEmail()} </li>
-          <li class="list-group-item"> ${manager.getOfficeNumber()} </li>
+          <li class="list-group-item">ID: ${manager.getId()} </li>
+          <li class="list-group-item">Email: <a href="mailto:${manager.getEmail()}}">${manager.getEmail()}</a></li>
+          <li class="list-group-item">Office Number: ${manager.getOfficeNumber()} </li>
         </ul>
       </div>
     </div>
-    ;
+    `;
 };
   
     const generateEngineer = engineer => {
-        return
+        return `
     <div class="card employee-card" style="width: 18rem;">
       <div class="card-header">
         <h5 class="card-title"> ${engineer.getName()} </h5>
@@ -30,9 +30,9 @@ const generateManager = manager => {
 
       <div class="card-body">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"> ${engineer.getId()} </li>
-          <li class="list-group-item"> ${engineer.getEmail()} </li>
-          <li class="list-group-item"> ${engineer.getGithub()}: </li>
+          <li class="list-group-item">ID: ${engineer.getId()} </li>
+          <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
+          <li class="list-group-item">Github: <a href="https://github.com/${engineer.getGithub()}": target="_blank" rel="noopener noreferrer">${engineer.getGithub()}</a></li>
         </ul>
       </div>
     </div>
@@ -49,13 +49,13 @@ const generateManager = manager => {
 
       <div class="card-body">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"> ${intern.getId()} </li>
-          <li class="list-group-item"> ${intern.getEmail()} </li>
-          <li class="list-group-item"> ${intern.getGithub()} </li>
+          <li class="list-group-item">ID: ${intern.getId()} </li>
+          <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
+          <li class="list-group-item">School: ${intern.getGithub()} </li>
         </ul>
       </div>
     </div>
-    ;
+    `;
     };
 
     const html = [];
@@ -83,7 +83,7 @@ const generateManager = manager => {
 
     module.exports = team => {
 
-    return
+    return `
 
     <!DOCTYPE html>
     <html lang="en">
@@ -119,5 +119,5 @@ const generateManager = manager => {
   </body>
   </html>
 
-  ;
+  `;
   };

@@ -4,34 +4,37 @@ const Intern = require ("./lib/intern.js");
 const inquirer = require ("inquirer");
 const path = require ("path");
 const fs = require ("fs");
-const OUTPUT_DIR = path.resolve(__dirname, "dist")
+
+const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
+
 const render = require("./src/template.js");
+
 const teamMembers = [];
 const idArray = [];
 
 function appMenu() {
 
 function createManager () {
-    console.log("Make your team.");
-inquirer
+    // console.log("Make your team.");
+    inquirer
     .prompt([
         {
-            type: 'input',
-            name: 'managerName',
-            message: 'What is your name?',
+            type: "input",
+            name: "managerName",
+            message: "What is your name?",
             validate: answer => {
                 if (answer !=="") {
                     return true;
                 }
-                return "Enter min of one character."
+                return "Enter min of one character.";
             }
             },
         
         {
-            type: 'input',
-            name: 'id',
-            message: 'What is your ID number?',
+            type: "input",
+            name: "managerId",
+            message: "What is the manager ID number?",
             validate: answer => {
                 const pass = answer.match (
                     /^[1-9]\d*$/
@@ -39,14 +42,14 @@ inquirer
                 if (pass) {
                     return true;
                 }
-                return "Enter number more than zero."
+                return "Enter number more than zero.";
             }
         },
 
         {
-            type: 'input',
-            name: 'email',
-            message: 'What is your email?',
+            type: "input",
+            name: "managerEmail",
+            message: "What is the managers email?",
             validate: answer => {
                 const pass = answer.match (
                     /\S+@\S+\.\S+/
@@ -54,14 +57,14 @@ inquirer
                 if (pass) {
                     return true;
                 }
-                return "Enter a correct email address."
+                return "Enter a correct email address.";
             }
         },
 
         {
-            type: 'input',
-            name: 'office',
-            message: 'What is your office number?',
+            type: "input",
+            name: "managerOffice",
+            message: "What is the manager's office number?",
             validate: answer => {
                 const pass = answer.match (
                     /^[1-9]\d*$/
@@ -69,13 +72,13 @@ inquirer
                 if (pass) {
                     return true;
                 }
-                return "Enter a number more than zero."
+                return "Enter a number more than zero.";
             }
         }
-    ]) .then(answers => {
-        const manager = new Manager (answers.managerName, answers.id, answers.email, answers.office);
+    ]).then(answers => {
+        const manager = new Manager (answers.managerName, answers.managerId, answers.managerEmail, answers.managerOffice);
         teamMembers.push(manager);
-        idArray.push(answers.id);
+        idArray.push(answers.managerId);
         createTeam();
     });
     }
@@ -84,9 +87,9 @@ inquirer
         inquirer
         .prompt ([
             {
-                type: 'list',
-                name: 'employeeChoice',
-                message: 'Which employee are you adding?',
+                type: "list",
+                name: "employeeChoice",
+                message: "Which employee are you adding?",
                 choices: ["Engineer", "Intern", "None"] 
             }
         ]).then (userChoice => {
@@ -113,14 +116,14 @@ inquirer
                         if (answer !=="") {
                             return true;
                         }
-                        return "Enter a min. of one letter."
+                        return "Enter a min. of one letter.";
                     }
                 },
 
                 {
                     type: "input",
-                    name: "id",
-                    message: "What is the ID of the engineer?",
+                    name: "engineerId",
+                    message: "What is the ID number of the engineer?",
                     validate: answer => {
                         const pass = answer.match(
                             /^[1-9]\d*$/
@@ -138,7 +141,7 @@ inquirer
 
                 {
                     type: "input",
-                    name: "email",
+                    name: "engineerEmail",
                     message: "What is the engineer's email address?",
                     validate: answer => {
                         const pass = answer.match(
@@ -147,25 +150,25 @@ inquirer
                         if (pass) {
                             return true;
                         }
-                        return "Enter correct email address."
+                        return "Enter correct email address.";
                     }
                 },
 
                 {
                     type: "input",
-                    name: "github",
+                    name: "engineerGithub",
                     message: "What is the engineer's Github user?",
                     validate: answer => {
                         if (answer !== "") {
                             return true;
                         }
-                        return "Enter a min. of one letter."
+                        return "Enter a min. of one letter.";
                     }
                 }
             ]).then(answers => {
-                const engineer = new Engineer(answers.engineerName, answers.id, answers.email, answers.github);
+                const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
                 teamMembers.push(engineer);
-                idArray.push(answers.id);
+                idArray.push(answers.engineerId);
                 createTeam();
             });
         }
@@ -181,13 +184,13 @@ inquirer
                         if (answer !=="") {
                             return true;
                         }
-                        return "Enter a min. of one letter."
+                        return "Enter a min. of one letter.";
                     }
                     },
 
                     {
                         type: "input",
-                        name: "id",
+                        name: "internId",
                         message: "What is the Intern's ID number?",
                         validate: answer => {
                             const pass = answer.match(
@@ -201,13 +204,13 @@ inquirer
                                 }
 
                             }
-                            return "Enter a number more than zero."
+                            return "Enter a number more than zero.";
                         }
                     },
                 
                     {
                         type: "input",
-                        name: "email",
+                        name: "internEmail",
                         message: "What is the intern's email?",
                         validate: answer => {
                           const pass = answer.match(
@@ -221,7 +224,7 @@ inquirer
                       },
                       {
                         type: "input",
-                        name: "school",
+                        name: "internSchool",
                         message: "Where did the Intern go to school?",
                         validate: answer => {
                           if (answer !== "") {
@@ -231,9 +234,9 @@ inquirer
                         }
                       } 
                 ]).then(answers => {
-                    const intern = new Intern(answers.internName, answers.id, answers.email, answers.school);
+                    const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
                     teamMembers.push(intern);
-                    idArray.push(answers.id);
+                    idArray.push(answers.internId);
                     createTeam();
                 }); 
         }
@@ -243,7 +246,7 @@ inquirer
 
 
     function buildTeam() {
-        // Create the output directory if the output path doesn't exist
+        
         if (!fs.existsSync(OUTPUT_DIR)) {
           fs.mkdirSync(OUTPUT_DIR)
         }
